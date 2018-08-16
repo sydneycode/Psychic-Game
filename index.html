@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+</head>
+<body>
+    <h1>The Psychic Game</h1>
+
+    <p>Guess what letter I'm thinking of</p>
+    <p>Wins: <span id="wins">0</span></p>
+    <p>Losses: <span id="losses">0</span></p>
+    <p>Guesses Left: <span id="guessesLeft">9</span></p>
+    <p>Your Guesses So Far: <span id="guesses"></span></p>
+
+    <script>
+        
+        var randomLetter = pickRandomLetter();
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var guesses = [];
+
+        document.onkeypress = function(){
+             var keyName = event.key;
+             if (keyName == randomLetter) {
+                wins++;
+                guessesLeft = 9;
+                randomLetter = pickRandomLetter();
+                guesses = [];
+             }
+             else if (guessesLeft > 1) {
+                if (guesses.indexOf(keyName) == -1) {
+                    guesses.push(keyName);
+                    guessesLeft--;
+                }
+             }
+             else {
+                losses++;
+                guessesLeft = 9;
+                randomLetter = pickRandomLetter();
+                guesses = [];
+             }
+
+             document.getElementById("wins").innerHTML = wins;
+             document.getElementById("losses").innerHTML = losses;
+             document.getElementById("guessesLeft").innerHTML = guessesLeft;
+             document.getElementById("guesses").innerHTML = guesses;
+         }
+         
+         function pickRandomLetter() {
+             var alphabet = "abcdefghijklmnopqrstuvwxyz";
+             // Generate a random number between 0 and 25
+             var randomNumber = Math.floor((Math.random() * alphabet.length));
+             selectedLetter = alphabet[randomNumber];
+             console.log(selectedLetter);
+             return selectedLetter;
+         }
+        
+    </script>
+
+</body>
+</html>
